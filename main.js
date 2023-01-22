@@ -26,7 +26,7 @@ scene.add(mesh);
 
 // light
 const light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(5, 10, 10);
+light.position.set(10, 20, 10);
 scene.add(light);
 
 // size
@@ -58,7 +58,7 @@ controls.enableDamping = true;
 controls.enablePan = false;
 controls.enableZoom = false;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 5;
+controls.autoRotateSpeed = 2;
 
 // resize event listener
 window.addEventListener("resize", () => {
@@ -73,6 +73,7 @@ window.addEventListener("resize", () => {
 
 // rerender the canvas
 const loop = () => {
+  mesh.rotation.y += 0.005;
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(loop);
