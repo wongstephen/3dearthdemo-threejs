@@ -11,6 +11,25 @@ const sizes = {
   height: window.innerHeight,
 };
 
+// background
+/* const spaceTexture = new THREE.TextureLoader().load("./assets/stars.jpeg");
+spaceTexture.wrapS = THREE.RepeatWrapping;
+spaceTexture.wrapT = THREE.RepeatWrapping;
+spaceTexture.aspect = sizes.width / sizes.height;
+// spaceTexture.repeat.set(1, 1);
+scene.background = spaceTexture; */
+//skybox
+const loader = new THREE.CubeTextureLoader();
+const texture = loader.load([
+  "./public/assets/skybox/posx.jpg",
+  "./public/assets/skybox/negx.jpg",
+  "./public/assets/skybox/posy.jpg",
+  "./public/assets/skybox/negy.jpg",
+  "./public/assets/skybox/posz.jpg",
+  "./public/assets/skybox/negz.jpg",
+]);
+scene.background = texture;
+
 // shape: sphere - args size width height
 const geometry = new THREE.SphereGeometry(3, 50, 50);
 // texture
@@ -19,14 +38,6 @@ const material = new THREE.MeshStandardMaterial({
   color: 0xffffff,
   map: earthTexture,
 });
-
-// background
-const spaceTexture = new THREE.TextureLoader().load("./assets/stars.jpeg");
-spaceTexture.wrapS = THREE.RepeatWrapping;
-spaceTexture.wrapT = THREE.RepeatWrapping;
-spaceTexture.aspect = sizes.width / sizes.height;
-// spaceTexture.repeat.set(1, 1);
-scene.background = spaceTexture;
 
 // geometry * material
 const mesh = new THREE.Mesh(geometry, material);
@@ -58,10 +69,10 @@ renderer.setPixelRatio(2);
 // controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-controls.enablePan = false;
-controls.enableZoom = false;
+// controls.enablePan = false;
+// controls.enableZoom = false;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 2;
+controls.autoRotateSpeed = 0.1;
 
 // resize event listener
 window.addEventListener("resize", () => {
@@ -76,7 +87,7 @@ window.addEventListener("resize", () => {
 
 // rerender the canvas
 const loop = () => {
-  mesh.rotation.y += 0.005;
+  // mesh.rotation.y += 0.005;
   controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(loop);
