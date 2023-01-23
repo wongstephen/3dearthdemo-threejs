@@ -5,18 +5,26 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // main scene
 const scene = new THREE.Scene();
 
+// size
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
+
 // shape: sphere - args size width height
-const geometry = new THREE.SphereGeometry(3, 64, 64);
+const geometry = new THREE.SphereGeometry(3, 50, 50);
 // texture
-const earthTexture = new THREE.TextureLoader().load("./assets/earth.jpeg");
+const earthTexture = new THREE.TextureLoader().load("./assets/hoth.jpeg");
 const material = new THREE.MeshStandardMaterial({
+  color: 0xffffff,
   map: earthTexture,
 });
 
 // background
-const spaceTexture = new THREE.TextureLoader().load("./assets/space.jpeg");
+const spaceTexture = new THREE.TextureLoader().load("./assets/stars.jpeg");
 spaceTexture.wrapS = THREE.RepeatWrapping;
 spaceTexture.wrapT = THREE.RepeatWrapping;
+spaceTexture.aspect = sizes.width / sizes.height;
 // spaceTexture.repeat.set(1, 1);
 scene.background = spaceTexture;
 
@@ -26,14 +34,9 @@ scene.add(mesh);
 
 // light
 const light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(10, 20, 10);
+light.power = 50;
+light.position.set(-50, 20, 20);
 scene.add(light);
-
-// size
-const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-};
 
 // camera
 const camera = new THREE.PerspectiveCamera(
@@ -42,7 +45,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   2000
 );
-camera.position.z = 15;
+camera.position.z = 10;
 scene.add(camera);
 
 // renderer
